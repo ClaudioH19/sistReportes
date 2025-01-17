@@ -34,7 +34,7 @@ export function generadorDias(fecha_inicio, fecha_fin) {
 
 export const fetchData = async (sector, fecha_inicio, fecha_fin, fechas) => {
   const response = await fetch(
-    `http://127.0.0.1:5000/heatmap_fecha_hora?sector=${sector}&fecha_inicio=${fecha_inicio}&fecha_fin=${fecha_fin}`
+    `http://127.0.0.1:8000/api/heatmap_fecha_hora?sector=${sector}&fecha_inicio=${fecha_inicio}&fecha_fin=${fecha_fin}`
   );
   if (!response.ok) {
     console.log("Error al obtener los datos");

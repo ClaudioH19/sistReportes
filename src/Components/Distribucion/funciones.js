@@ -1,7 +1,7 @@
 //peticion cambiar de pos
 export const fetchData = async (sector, fecha_inicio, fecha_fin) => {
   const response = await fetch(
-    `http://127.0.0.1:5000/factor_riesgo?sector=${sector}&fecha_inicio=${fecha_inicio}&fecha_fin=${fecha_fin}`
+    `http://127.0.0.1:8000/api/factor_riesgo?sector=${sector}&fecha_inicio=${fecha_inicio}&fecha_fin=${fecha_fin}`
   );
   if (!response.ok) {
     throw new Error("Error al obtener los datos");

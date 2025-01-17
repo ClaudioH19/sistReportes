@@ -1,5 +1,7 @@
 export const fetchData = async (sector) => {
-  const response = await fetch(`http://127.0.0.1:5000/coords?sector=${sector}`);
+  const response = await fetch(
+    `http://127.0.0.1:8000/api/coords?sector=${sector}`
+  );
   if (!response.ok) {
     console.log("Error al obtener los datos");
     return [];
