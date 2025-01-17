@@ -128,7 +128,7 @@ const HeatMap = ({ startDate, endDate, sector }) => {
           htmlFor="selector"
           style={{ marginRight: "10px", fontSize: "14px" }}
         >
-          Selecciona el índice de datos:
+          Seleccionar página de datos:
         </label>
         <select
           id="selector"
@@ -141,8 +141,8 @@ const HeatMap = ({ startDate, endDate, sector }) => {
             border: "1px solid #ccc",
           }}
         >
-          {fechas &&
-            fechas.map((_, idx) => (
+          {data &&
+            data.map((v, idx) => (
               <option key={idx} value={idx}>
                 {idx + 1}
               </option>

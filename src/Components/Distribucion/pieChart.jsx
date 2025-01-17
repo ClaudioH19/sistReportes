@@ -57,7 +57,7 @@ const PieChart = ({ startDate, endDate, sector }) => {
           show: true,
           formatter: "{b}: {c}\n ({d}%)",
           fontWeight: "bolder",
-          fontSize: 10,
+          fontSize: 12,
         },
         emphasis: {
           itemStyle: {

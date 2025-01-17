@@ -57,7 +57,7 @@ const HeatMapCoords = () => {
           height: newHeight,
         },
         style: {
-          fill: `rgba(0, 0, 0, ${percentage / 100})`,
+          fill: `rgba(0, 0, 0, ${(100 - percentage) / 100})`,
         },
       },
     ],
