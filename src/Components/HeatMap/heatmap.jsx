@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ReactECharts from "echarts-for-react";
-import { generadorDias, fetchData, hours } from "./funciones";
+import { generarRangoDeFechas, fetchData, hours } from "./funciones";
 
 const HeatMap = ({ startDate, endDate, sector }) => {
   const [selectedIdx, setSelectedIdx] = useState(0);
-  const fechas = generadorDias(startDate, endDate);
+  const fechas = generarRangoDeFechas(startDate, endDate);
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -68,7 +68,7 @@ const HeatMap = ({ startDate, endDate, sector }) => {
         fontSize: 12,
         fontWeight: "bold",
       },
-      data: fechas[selectedIdx] || [],
+      data: fechas || [],
       axisLabel: {
         fontSize: 12,
         color: "#000000",
@@ -98,7 +98,7 @@ const HeatMap = ({ startDate, endDate, sector }) => {
       {
         name: "Eventos",
         type: "heatmap",
-        data: data[selectedIdx] || [],
+        data: data || [],
         label: {
           show: true,
           formatter: ({ value }) => value[2],
@@ -123,32 +123,6 @@ const HeatMap = ({ startDate, endDate, sector }) => {
   };
   return (
     <div style={{ width: "100%" }}>
-      <div style={{ textAlign: "center", marginBottom: "20px" }}>
-        <label
-          htmlFor="selector"
-          style={{ marginRight: "10px", fontSize: "14px" }}
-        >
-          Seleccionar página de datos:
-        </label>
-        <select
-          id="selector"
-          value={selectedIdx}
-          onChange={handleIndexChange}
-          style={{
-            padding: "5px",
-            fontSize: "14px",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-          }}
-        >
-          {data &&
-            data.map((v, idx) => (
-              <option key={idx} value={idx}>
-                {idx + 1}
-              </option>
-            ))}
-        </select>
-      </div>
       <ReactECharts
         option={option}
         style={{ width: "100%", height: "600px", margin: "0 auto" }}
@@ -161,9 +135,8 @@ const HeatMap = ({ startDate, endDate, sector }) => {
           color: "#666",
         }}
       >
-        <strong>Total de eventos:</strong>{" "}
-        {data[selectedIdx] ? data[selectedIdx].length : 0} eventos registrados.
-        registrados.
+        <strong>Total de eventos:</strong> {data ? data.length : 0} eventos
+        registrados. registrados.
       </div>
     </div>
   );

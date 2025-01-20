@@ -12,10 +12,10 @@ import styles from "./wrapperStyle.module.css";
 
 const Wrapper = () => {
   const [startMonth, setStartMonth] = useState(
-    dayjs().subtract(24, "month").startOf("month").format("YYYY-MM-DD")
+    dayjs().startOf("month").format("YYYY-MM-DD")
   );
   const [endMonth, setEndMonth] = useState(
-    dayjs().subtract(12, "month").startOf("month").format("YYYY-MM-DD")
+    dayjs().endOf("month").format("YYYY-MM-DD")
   );
   const [sectores, setSectores] = useState([]);
   const [selectedSector, setSelectedSector] = useState("");
@@ -43,6 +43,16 @@ const Wrapper = () => {
     fetchSectores();
   }, []);
 
+  const handleMonthChange = (date) => {
+    if (date) {
+      setStartMonth(date.startOf("month").format("YYYY-MM-DD"));
+      setEndMonth(date.endOf("month").format("YYYY-MM-DD"));
+    } else {
+      setStartMonth(null);
+      setEndMonth(null);
+    }
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.Selector}>
@@ -59,35 +69,14 @@ const Wrapper = () => {
               setSelectedSector(option ? option.value : null)
             }
           />
-          <span className={styles.selectLabel}>Desde:</span>
+          <span className={styles.selectLabel}>Mes:</span>
           <DatePicker
             picker="month"
-            defaultValue={dayjs().subtract(24, "month")}
+            defaultValue={dayjs()}
             format="YYYY-MM"
-            onChange={(date) =>
-              setStartMonth(
-                date ? date.startOf("month").format("YYYY-MM-DD") : null
-              )
-            }
+            onChange={handleMonthChange}
             disabledDate={(current) =>
               current && (current.year() < 2023 || current.year() > 2025)
-            }
-          />
-          <span className={styles.selectLabel}>Hasta:</span>
-          <DatePicker
-            picker="month"
-            defaultValue={dayjs().subtract(12, "month")}
-            format="YYYY-MM"
-            onChange={(date) =>
-              setEndMonth(
-                date ? date.startOf("month").format("YYYY-MM-DD") : null
-              )
-            }
-            disabledDate={(current) =>
-              current &&
-              (current.year() < 2023 ||
-                current.year() > 2025 ||
-                current < dayjs(startMonth))
             }
           />
         </div>

@@ -66,11 +66,11 @@ const PieChart = ({ startDate, endDate, sector }) => {
             shadowColor: "rgba(0, 0, 0, 0.5)",
           },
         },
-        animationType: "scale",
-        animationEasing: "elasticOut",
-        animationDelay: function (idx) {
-          return Math.random() * 100;
-        },
+        //animationType: "scale",
+        //animationEasing: "elasticOut",
+        //animationDelay: function (idx) {
+        //  return Math.random() * 100;
+        //},
       },
     ],
   };

@@ -1,38 +1,4 @@
-export function generadorDias(fecha_inicio, fecha_fin) {
-  if (fecha_inicio && fecha_fin) {
-    let dataAxis = [];
-    let startDate = new Date(fecha_inicio);
-    startDate.setDate(1);
-    startDate.setHours(0, 0, 0, 0);
-
-    let endDate = new Date(fecha_fin);
-    endDate.setMonth(endDate.getMonth() + 1, 0); // Último día del mes final
-    endDate.setHours(23, 59, 59, 999);
-
-    let aux = [];
-    let currentMonth = startDate.getMonth();
-
-    while (startDate <= endDate) {
-      aux.push(startDate.toISOString().split("T")[0]);
-
-      // Detectar cambio de mes
-      if (startDate.getMonth() !== currentMonth) {
-        dataAxis.push(aux.slice(0, -1)); // Excluir la fecha del mes siguiente
-        aux = [aux[aux.length - 1]]; // Iniciar con la fecha actual
-        currentMonth = startDate.getMonth();
-      }
-      startDate.setDate(startDate.getDate() + 1);
-    }
-
-    // Agregar las fechas restantes
-    if (aux.length) dataAxis.push(aux);
-
-    return dataAxis;
-  }
-  return null;
-}
-
-export const fetchData = async (sector, fecha_inicio, fecha_fin, fechas) => {
+export const fetchData = async (sector, fecha_inicio, fecha_fin) => {
   const response = await fetch(
     `http://127.0.0.1:8000/api/heatmap_fecha_hora?sector=${sector}&fecha_inicio=${fecha_inicio}&fecha_fin=${fecha_fin}`
   );
@@ -41,28 +7,56 @@ export const fetchData = async (sector, fecha_inicio, fecha_fin, fechas) => {
     return [];
   }
 
-  // Inicializar el arreglo con 12 meses vacíos
-  let dates = Array.from({ length: 12 }, () => []);
-
   const data = await response.json();
-
+  let dates = [];
+  //deben venir ordenadas por date
   for (const v of data) {
-    const currentMonthIdx = new Date(v.date).getMonth();
-    const idxFecha = searchIndexMonth(fecha_inicio, fecha_fin, v.date, fechas);
+    const idxFecha = parseInt(v.date.split("-")[2]) - 1;
     const idxHora = parseInt(v.hour.split(":")[0], 10);
-
-    dates[currentMonthIdx].push([idxHora, idxFecha, v.value]);
+    dates.push([idxHora, idxFecha, v.value]);
   }
-  dates = dates.filter((arr) => arr.length > 0);
+
+  console.log(dates);
   return dates;
 };
 
-export const searchIndexMonth = (startDate, endDate, dia, dias) => {
-  //const idxMonth = new Date(dia).getMonth();
-  const idx = new Date(dia).getDate() - 1;
+export function generarRangoDeFechas(fechaInicio, fechaFin) {
+  // Verificar que las fechas estén definidas
+  if (!fechaInicio || !fechaFin) {
+    throw new Error(
+      "Se deben proporcionar ambas fechas: fechaInicio y fechaFin"
+    );
+  }
 
-  return idx;
-};
+  // Convertir las fechas a objetos Date
+  const startDate = new Date(fechaInicio);
+  const endDate = new Date(fechaFin);
+
+  // Verificar que fechaInicio <= fechaFin
+  if (startDate > endDate) {
+    throw new Error(
+      "La fecha de inicio no puede ser mayor que la fecha de fin"
+    );
+  }
+
+  const fechas = [];
+
+  // Iterar desde la fecha de inicio hasta la fecha de fin
+  while (startDate <= endDate) {
+    // Agregar la fecha actual al arreglo en formato YYYY-MM-DD
+    fechas.push(startDate.toISOString().split("T")[0]);
+
+    // Avanzar al siguiente día
+    startDate.setDate(startDate.getDate() + 1);
+  }
+
+  return fechas;
+}
+
+// Ejemplo de uso:
+const rangoDeFechas = generarRangoDeFechas("2023-10-01", "2023-10-10");
+console.log(rangoDeFechas);
+// Resultado: ["2023-10-01", "2023-10-02", "2023-10-03", ..., "2023-10-10"]
 
 export const hours = [
   "0:00",
