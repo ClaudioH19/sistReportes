@@ -16,7 +16,7 @@ export const fetchData = async (sector, fecha_inicio, fecha_fin) => {
     dates.push([idxHora, idxFecha, v.value]);
   }
 
-  console.log(dates);
+  //console.log(dates);
   return dates;
 };
 
@@ -43,8 +43,8 @@ export function generarRangoDeFechas(fechaInicio, fechaFin) {
 
   // Iterar desde la fecha de inicio hasta la fecha de fin
   while (startDate <= endDate) {
-    // Agregar la fecha actual al arreglo en formato YYYY-MM-DD
-    fechas.push(startDate.toISOString().split("T")[0]);
+    // Agregar la fecha actual al arreglo en formato YYYY-MM-DD: DD
+    fechas.push("día " + startDate.toISOString().split("T")[0].split("-")[2]);
 
     // Avanzar al siguiente día
     startDate.setDate(startDate.getDate() + 1);

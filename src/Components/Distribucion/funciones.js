@@ -8,7 +8,7 @@ export const fetchData = async (sector, fecha_inicio, fecha_fin) => {
   }
   const data = await response.json();
 
-  console.log(data);
+  //console.log(data);
   return data.map((v) => {
     return { name: v.name, value: v.value };
   });

@@ -44,7 +44,6 @@ const StackedBar = ({ startDate, endDate, sector }) => {
     title: {
       text: `Incidentes`,
       left: "center",
-      top: "2%",
       textStyle: {
         color: "#333",
         fontSize: 24,
@@ -58,16 +57,41 @@ const StackedBar = ({ startDate, endDate, sector }) => {
     grid: {
       left: "5%",
       right: "4%",
-      bottom: "3%",
+      bottom: "10%",
       top: "15%",
       containLabel: true,
     },
     xAxis: {
       type: "value",
+      name: "Cantidad Incidentes",
+      nameLocation: "center",
+      nameTextStyle: {
+        color: "#000",
+        fontSize: 12,
+        fontWeight: "bold",
+        padding: 10,
+      },
+
+      axisLabel: {
+        fontSize: 12,
+        color: "#000000",
+        interval: 0,
+      },
     },
     yAxis: {
       type: "category",
       data: hours,
+      name: "Horario",
+      nameTextStyle: {
+        color: "#000",
+        fontSize: 12,
+        fontWeight: "bold",
+      },
+      axisLabel: {
+        fontSize: 12,
+        color: "#000000",
+        interval: 0,
+      },
     },
     label: {
       top: 10,

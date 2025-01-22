@@ -4,8 +4,22 @@ import { generarRangoDeFechas, fetchData, hours } from "./funciones";
 
 const HeatMap = ({ startDate, endDate, sector }) => {
   const [selectedIdx, setSelectedIdx] = useState(0);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
   const fechas = generarRangoDeFechas(startDate, endDate);
   const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 1100);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Initial execution
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     setSelectedIdx(0);
@@ -16,12 +30,15 @@ const HeatMap = ({ startDate, endDate, sector }) => {
     fetchMonthData();
   }, [startDate, endDate, sector]);
 
+  const maxDataValue = data.reduce(
+    (max, current) => Math.max(max, current[2]),
+    0
+  );
+
   const option = {
-    //backgroundColor: "#f7f8fc",
     title: {
       text: `Calendario de Eventos`,
       left: "center",
-      top: "2%",
       textStyle: {
         color: "#333",
         fontSize: 24,
@@ -48,8 +65,8 @@ const HeatMap = ({ startDate, endDate, sector }) => {
       },
       axisLabel: {
         interval: 0,
-        fontSize: 12,
-        rotate: 0,
+        fontSize: isSmallScreen ? 9 : 12,
+        rotate: isSmallScreen ? 270 : 0,
         color: "#000000",
       },
       splitLine: {
@@ -70,7 +87,7 @@ const HeatMap = ({ startDate, endDate, sector }) => {
       },
       data: fechas || [],
       axisLabel: {
-        fontSize: 12,
+        fontSize: isSmallScreen ? 9 : 12,
         color: "#000000",
         interval: 0,
       },
@@ -84,7 +101,7 @@ const HeatMap = ({ startDate, endDate, sector }) => {
     },
     visualMap: {
       min: 0,
-      max: 60,
+      max: maxDataValue,
       calculable: true,
       top: "middle",
       left: "right",

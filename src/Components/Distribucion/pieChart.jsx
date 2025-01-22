@@ -4,6 +4,20 @@ import { fetchData } from "./funciones";
 
 const PieChart = ({ startDate, endDate, sector }) => {
   const [data, setData] = useState([]);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 1100);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const getData = async () => {
@@ -20,7 +34,6 @@ const PieChart = ({ startDate, endDate, sector }) => {
   }, [startDate, endDate, sector]);
 
   const option = {
-    //backgroundColor: "#f7f8fc",
     title: {
       text: "Distribución por Zona",
       left: "center",
@@ -36,13 +49,11 @@ const PieChart = ({ startDate, endDate, sector }) => {
       formatter: "{b}: {c} ({d}%)",
     },
     legend: {
-      orient: "vertical",
-      top: "middle",
-      right: "0%",
-      borderRadius: 8,
-      padding: 10,
+      orient: "horizontal",
+      top: "10%",
+      left: "center",
       textStyle: {
-        fontSize: 10,
+        fontSize: isSmallScreen ? 11 : 14,
         color: "#333",
       },
     },
@@ -50,14 +61,14 @@ const PieChart = ({ startDate, endDate, sector }) => {
       {
         name: "Distribución por Zona",
         type: "pie",
-        radius: "60%",
-        left: "-10%",
+        radius: isSmallScreen ? "40%" : "60%",
+        center: isSmallScreen ? ["50%", "60%"] : ["50%", "60%"],
         data: data,
         label: {
           show: true,
           formatter: "{b}: {c}\n ({d}%)",
           fontWeight: "bolder",
-          fontSize: 12,
+          fontSize: isSmallScreen ? 10 : 12,
         },
         emphasis: {
           itemStyle: {
@@ -66,11 +77,6 @@ const PieChart = ({ startDate, endDate, sector }) => {
             shadowColor: "rgba(0, 0, 0, 0.5)",
           },
         },
-        //animationType: "scale",
-        //animationEasing: "elasticOut",
-        //animationDelay: function (idx) {
-        //  return Math.random() * 100;
-        //},
       },
     ],
   };

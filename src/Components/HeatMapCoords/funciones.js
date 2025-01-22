@@ -7,7 +7,6 @@ export const fetchData = async (sector) => {
     return [];
   }
 
-  //cambiar value para que se asigne el color por cantidad de conjunto
   const data = await response.json();
 
   return data;
@@ -21,14 +20,5 @@ export const sectores = [
   { value: "fondoSector5", label: "Sector 5" },
   { value: "fondoSector6", label: "Sector 6" },
 ];
-
-export const originalWidth = 1920;
-export const originalHeight = 1080;
-
-export const newWidth = 960;
-export const newHeight = 720;
-
-export const scaleX = newWidth / originalWidth;
-export const scaleY = newHeight / originalHeight;
 
 export const colors = ["#0000ff", "#800080", "#ff007f", "#ff4500", "#ffff00"];

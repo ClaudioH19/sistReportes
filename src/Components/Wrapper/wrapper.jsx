@@ -55,12 +55,16 @@ const Wrapper = () => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.Selector}>
+      <div className={styles.selectorSection}>
         <div className={styles.selectorContainer}>
+          <label className={styles.selectLabel} htmlFor="sectorSelector">
+            Seleccione un sector:
+          </label>
           <Select
-            className={`${styles.basicSingle}`}
+            id="sectorSelector"
+            className={styles.basicSingle}
             classNamePrefix="select"
-            defaultValue={0}
+            placeholder="Seleccione un sector..."
             isClearable={true}
             isSearchable={true}
             name="sector"
@@ -69,8 +73,14 @@ const Wrapper = () => {
               setSelectedSector(option ? option.value : null)
             }
           />
-          <span className={styles.selectLabel}>Mes:</span>
+        </div>
+        <div className={styles.selectorContainer}>
+          <label className={styles.selectLabel} htmlFor="monthSelector">
+            Seleccione un mes:
+          </label>
           <DatePicker
+            id="monthSelector"
+            className={styles.antPicker}
             picker="month"
             defaultValue={dayjs()}
             format="YYYY-MM"

@@ -1,21 +1,40 @@
 import React, { useState, useEffect } from "react";
 import ReactECharts from "echarts-for-react";
-import {
-  fetchData,
-  sectores,
-  originalWidth,
-  originalHeight,
-  newWidth,
-  newHeight,
-  scaleX,
-  scaleY,
-  colors,
-} from "./funciones";
+import { fetchData, sectores, colors } from "./funciones";
+
+export const originalWidth = 1620;
+export const originalHeight = 1080;
+
+export const newWidth = 960;
+export const newHeight = 720;
+
+export const scaleX = newWidth / originalWidth;
+export const scaleY = newHeight / originalHeight;
 
 const HeatMapCoords = () => {
   const [data, setData] = useState(null);
   const [nombreFondo, setNombreFondo] = useState("fondoSector1");
   const [percentage, setPercentage] = useState(50);
+  const [newWidth, setNewWidth] = useState(window.innerWidth * 0.8);
+  const [newHeight, setNewHeight] = useState(
+    (window.innerWidth * 0.8 * 9) / 16
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth * 0.8;
+      const height = (width * 9) / 16;
+      setNewWidth(width);
+      setNewHeight(height);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchDataOnce = async () => {
