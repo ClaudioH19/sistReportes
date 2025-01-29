@@ -3,16 +3,16 @@
     flex-wrap: wrap;
     align-items: center;
     padding: 20px;
-    border: 1px solid #2b5fa8;
+    border: 0px solid #2b5fa8;
     border-radius: 8px;
     background-color: #f9f9f9;
     margin: 20px 20px; 
     width: 70%; 
     gap: 15px;
-    position: relative; /* Asegura el contexto adecuado */
+    position: relative; 
 }
 
-/* Esto es clave para evitar que los dropdowns sean recortados */
+
 .selectWrapper {
     display: flex;
     flex-direction: column;
@@ -21,7 +21,7 @@
     margin: 0 5px;
     min-width: 220px;
     max-width: 250px;
-    position: relative; /* Permite a los dropdowns expandirse correctamente */
+    position: relative;
 }
 
 .selectWrapper label {
@@ -37,7 +37,7 @@
     max-width: 250px;
 }
 
-/* Permite que los dropdowns se superpongan sin ser limitados */
+
 .basicSingle .ant-select-dropdown {
     position: absolute !important;
     z-index: 9999 !important;
@@ -79,6 +79,13 @@
         max-width: 100%;
         padding: 10px;
         margin: auto;
+
+        padding: 20px;
+        border: 0px;
+        border-radius: 0px;
+        background-color: #f6f1f6f0;
+
+    
     }
 
     .dataButton {
