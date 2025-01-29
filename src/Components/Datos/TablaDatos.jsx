@@ -35,13 +35,13 @@ const TablaDatos = ({
   }, [selectedSector, selectedFactor, startMonth, endMonth]);
 
   const headers = [
-    { label: "ID", key: "id" },
-    { label: "Fecha", key: "fecha" },
-    { label: "Hora", key: "hora" },
-    { label: "Duración", key: "duracion" },
-    { label: "Involucrado", key: "involucrado" },
-    { label: "Sector", key: "sector" },
-    { label: "Factor de riesgo", key: "factor_de_riesgo" },
+    "id",
+    "fecha",
+    "hora",
+    "duración",
+    "involucrado",
+    "sector",
+    "factor_de_riesgo",
   ];
 
   const paginatedData = data.slice(
@@ -51,7 +51,7 @@ const TablaDatos = ({
 
   return (
     <div style={{ textAlign: "center", padding: "20px" }}>
-      <h1>Reporte de Eventos de Riesgo</h1>
+      <h1>Reporte de Eventos: {data.length} Registros</h1>
       <div
         style={{
           display: "flex",
@@ -61,7 +61,7 @@ const TablaDatos = ({
           margin: "0 auto",
         }}
       >
-        <CSVLink data={data} headers={headers} filename={"datos.csv"}>
+        <CSVLink data={[headers, ...data]} filename={"datos.csv"}>
           <button
             style={{
               padding: "10px 20px",
@@ -106,9 +106,9 @@ const TablaDatos = ({
           >
             <thead style={{ background: "#3354A3", color: "white" }}>
               <tr>
-                {headers.map((header) => (
-                  <th key={header.key} style={{ padding: "10px" }}>
-                    {header.label}
+                {headers.map((header, index) => (
+                  <th key={index} style={{ padding: "10px" }}>
+                    {header}
                   </th>
                 ))}
               </tr>
@@ -119,13 +119,11 @@ const TablaDatos = ({
                   key={index}
                   style={{ background: index % 2 === 0 ? "#f8f9fa" : "white" }}
                 >
-                  <td style={{ padding: "10px" }}>{row[0]}</td>
-                  <td style={{ padding: "10px" }}>{row[1]}</td>
-                  <td style={{ padding: "10px" }}>{row[2]}</td>
-                  <td style={{ padding: "10px" }}>{row[3]}</td>
-                  <td style={{ padding: "10px" }}>{row[4]}</td>
-                  <td style={{ padding: "10px" }}>{row[5]}</td>
-                  <td style={{ padding: "10px" }}>{row[6]}</td>
+                  {row.map((cell, cellIndex) => (
+                    <td key={cellIndex} style={{ padding: "10px" }}>
+                      {cell}
+                    </td>
+                  ))}
                 </tr>
               ))}
             </tbody>

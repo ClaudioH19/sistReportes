@@ -12,10 +12,11 @@ export const fetchData_KPI_stats = async (
   }
   let data = await response.json();
 
-  data.Promedio_duracion = data.Promedio_duracion.match(/[\d.]+/g).reduce(
-    (total, value, index) => total + value * [86400, 3600, 60, 1][index],
-    0
-  );
+  if (data.Promedio_duracion !== 0)
+    data.Promedio_duracion = data.Promedio_duracion.match(/[\d.]+/g).reduce(
+      (total, value, index) => total + value * [86400, 3600, 60, 1][index],
+      0
+    );
 
   return data;
 };

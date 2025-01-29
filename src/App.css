@@ -9,9 +9,10 @@
     margin: 20px 20px; 
     width: 70%; 
     gap: 15px;
-    overflow-x: hidden; 
+    position: relative; /* Asegura el contexto adecuado */
 }
 
+/* Esto es clave para evitar que los dropdowns sean recortados */
 .selectWrapper {
     display: flex;
     flex-direction: column;
@@ -20,6 +21,7 @@
     margin: 0 5px;
     min-width: 220px;
     max-width: 250px;
+    position: relative; /* Permite a los dropdowns expandirse correctamente */
 }
 
 .selectWrapper label {
@@ -35,8 +37,10 @@
     max-width: 250px;
 }
 
-.basicSingle {
-    flex-grow: 1;
+/* Permite que los dropdowns se superpongan sin ser limitados */
+.basicSingle .ant-select-dropdown {
+    position: absolute !important;
+    z-index: 9999 !important;
 }
 
 .dataButton {
