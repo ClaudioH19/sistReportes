@@ -85,6 +85,7 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
     },
     grid: {
       top: isSmallScreen ? "25%" : "15%",
+      bottom: "15%",
     },
     xAxis: {
       type: "category",
