@@ -1,0 +1,82 @@
+.selectorContainer {
+    display: flex;
+    align-items: flex-start; 
+    justify-content: flex-start; 
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin: 20px auto;
+    max-width: 1200px; 
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.selectWrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 0 5px;
+    min-width: 200px;
+    max-width: 250px; 
+}
+
+.selectWrapper label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.ant-picker,
+.basicSingle {
+    width: 100%;
+    min-width: 200px; 
+    max-width: 250px;
+}
+
+.basicSingle {
+    flex-grow: 1;
+}
+
+.dataButton {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background 0.3s;
+    min-width: 140px;
+}
+
+.dataButton:hover {
+    background-color: #666;
+}
+
+.icon {
+    font-size: 18px;
+}
+
+
+@media (max-width: 768px) {
+    .selectorContainer {
+        flex-direction: column; 
+        align-items: flex-start; 
+        width: 100%;
+        padding: 10px;
+    }
+
+    .selectWrapper {
+        width: 100%;
+        max-width: none; 
+    }
+
+    .dataButton {
+        width: 100%;
+    }
+}
