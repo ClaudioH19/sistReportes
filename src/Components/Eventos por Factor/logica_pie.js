@@ -14,8 +14,6 @@ export const fetchData_stats_per_month = async (
 
   let data = await response.json();
 
-  //formatear para el graf
-
   data = data.map((v) => {
     return { value: v.Total_eventos, name: v.Factor_de_riesgo };
   });
@@ -24,36 +22,36 @@ export const fetchData_stats_per_month = async (
 
 export const generarChart = (data, startDate, endDate, isSmallScreen) => {
   const safeData = Array.isArray(data) ? data : [];
-  const grayPalette = [
-    "#2E2E2E",
-    "#3C3C3C",
-    "#4A4A4A",
-    "#585858",
-    "#666666",
-    "#747474",
-    "#828282",
-    "#909090",
-    "#9E9E9E",
-    "#ACACAC",
-    "#BABABA",
-    "#C8C8C8",
-    "#D6D6D6",
-    "#E4E4E4",
-    "#F2F2F2",
+  const bluePalette = [
+    "#3354A3",
+    "#1E3D89",
+    "#4F6FD1",
+    "#142B66",
+    "#6B89D1",
+    "#213D73",
+    "#89A3E6",
+    "#102654",
+    "#A4B8F1",
+    "#0D1D40",
+    "#C7DAFF",
+    "#08132B",
+    "#E0ECFF",
+    "#040915",
+    "#F2F6FF",
   ];
 
   const option = {
     title: {
       text: "Total de Eventos por Factor de Riesgo",
       left: "left",
-      textStyle: { fontSize: 16, fontWeight: "bold" },
+      textStyle: { fontSize: 16, fontWeight: "bold", color: "#000000" },
     },
     tooltip: { trigger: "item", formatter: "{b}: {c} ({d}%)" },
     legend: {
       orient: isSmallScreen ? "horizontal" : "vertical",
       right: "10%",
       top: isSmallScreen ? "8%" : "center",
-      textStyle: { fontSize: 14, color: "#444" },
+      textStyle: { fontSize: 14, color: "#000000" },
     },
     series: [
       {
@@ -68,13 +66,13 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
           position: "outside",
           formatter: "{c} ({d}%)",
           fontSize: 14,
-          color: "#444",
+          color: "#000000",
         },
         labelLine: { show: true, length: 10, length2: 10 },
         emphasis: { label: { show: true, fontSize: 14, fontWeight: "bold" } },
         data: safeData.map((item, i) => ({
           ...item,
-          itemStyle: { color: grayPalette[i % grayPalette.length] },
+          itemStyle: { color: bluePalette[i % bluePalette.length] },
         })),
       },
     ],

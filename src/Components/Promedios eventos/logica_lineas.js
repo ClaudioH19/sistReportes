@@ -4,7 +4,7 @@ export const generateMonthsInRange = (startDate, endDate) => {
   let months = [];
 
   while (start <= end) {
-    let formattedMonth = start.toISOString().slice(0, 7); // Formato YYYY-MM
+    let formattedMonth = start.toISOString().slice(0, 7);
 
     if (!months.includes(formattedMonth)) {
       months.push(formattedMonth);
@@ -34,10 +34,8 @@ export const fetchData_stats_per_month = async (
 
   let data = await response.json();
 
-  //lista completa de meses dentro del rango
   const monthsRange = generateMonthsInRange(startDate, endDate);
 
-  // crear mapa de datos recibidos para fácil acceso y dar formato en segundos al promedio
   let dataMap = [];
 
   if (graf === 0)
@@ -61,7 +59,6 @@ export const fetchData_stats_per_month = async (
       ])
     );
 
-  // alinear los meses de data con los meses del rango en su idx
   const alignedData = monthsRange.map((month) => dataMap.get(month) || 0);
 
   return alignedData;
@@ -81,6 +78,7 @@ export const generarChart = (data, startDate, endDate, graf, isSmallScreen) => {
       textStyle: {
         fontSize: 16,
         fontWeight: "bold",
+        color: "#000000",
       },
     },
     tooltip: {
@@ -101,7 +99,7 @@ export const generarChart = (data, startDate, endDate, graf, isSmallScreen) => {
       axisLabel: {
         fontSize: isSmallScreen ? 9 : 12,
         rotate: isSmallScreen ? 90 : 0,
-        color: "#444",
+        color: "#000000",
         formatter: (value) => {
           const date = new Date(value + "-01");
           const monthNames = [
@@ -123,33 +121,34 @@ export const generarChart = (data, startDate, endDate, graf, isSmallScreen) => {
           }}`;
         },
         rich: {
-          a: { fontSize: 12, fontWeight: "bold", color: "#000" },
-          b: { fontSize: 10, color: "#666" },
+          a: { fontSize: 12, fontWeight: "bold", color: "#000000" },
+          b: { fontSize: 10, color: "#000" },
         },
       },
       axisLine: {
         lineStyle: {
-          color: "#888",
+          color: "#000",
         },
       },
     },
     yAxis: {
       type: "value",
-      name: graf === 0 ? "Tiempo (s)" : "Cantidad Involucrados",
+      name: graf === 0 ? "Tiempo (s)" : "N° Involucrados",
       nameLocation: isSmallScreen ? "end" : "middle",
       nameGap: isSmallScreen ? 15 : 50,
       nameTextStyle: {
         padding: isSmallScreen ? [0, -20, 0, 0] : [0, -50, 0, 0],
+        color: "#000000",
       },
       axisLabel: {
         fontSize: 12,
-        color: "#444",
+        color: "#000000",
       },
       splitLine: {
         show: true,
         lineStyle: {
           type: "dashed",
-          color: "#ccc",
+          color: "#A4B8E1",
         },
       },
     },
@@ -161,16 +160,16 @@ export const generarChart = (data, startDate, endDate, graf, isSmallScreen) => {
         symbolSize: 6,
         lineStyle: {
           width: 3,
-          color: "#666",
+          color: "#5E77C4",
         },
         itemStyle: {
-          color: "#444",
+          color: "#A4B8E1",
         },
         label: {
           show: true,
           position: "top",
           fontSize: 12,
-          color: "#444",
+          color: "#000000",
         },
       },
     ],

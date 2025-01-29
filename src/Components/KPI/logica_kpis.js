@@ -12,10 +12,6 @@ export const fetchData_KPI_stats = async (
   }
   let data = await response.json();
 
-  //MODELO
-  //{Total_eventos: , Promedio_duracion: , Promedio_involucrado: }
-
-  //convertir a segundos la duracion
   data.Promedio_duracion = data.Promedio_duracion.match(/[\d.]+/g).reduce(
     (total, value, index) => total + value * [86400, 3600, 60, 1][index],
     0
@@ -24,27 +20,29 @@ export const fetchData_KPI_stats = async (
   return data;
 };
 
-//opciones grafico
 export const generarKPI = (data, kpi, isSmallScreen) => {
   data = parseFloat(data).toFixed(1);
 
-  //fijar limite inf
   let totalEventos = data || 1;
   const orderOfMagnitude = Math.pow(10, Math.floor(Math.log10(totalEventos)));
   const maxValue =
     Math.ceil(totalEventos / orderOfMagnitude) * orderOfMagnitude;
 
-  // Definir titulo segun KPI
   let title = "";
-  if (kpi === 1) title = "Total de Eventos Registrados";
-  else if (kpi === 2) title = "Promedio de Segundos por Evento";
-  else title = "Promedio de Involucrados por Evento";
+  if (kpi === 1) title = "Total Eventos Registrados";
+  else if (kpi === 2) title = "Media de Segundos por Evento";
+  else title = "Media de Involucrados por Evento";
 
-  // ajustar responsive
+  if (isSmallScreen) {
+    if (kpi === 1) title = "Total Eventos";
+    else if (kpi === 2) title = "Prom. Segundos/Event";
+    else title = "Prom. Involucrados/Event";
+  }
+
   const fontSizeTitle = isSmallScreen ? 9 : 18;
   const fontSizeLabels = isSmallScreen ? 10 : 12;
   const fontSizeDetail = isSmallScreen ? 15 : 25;
-  const radiusSize = isSmallScreen ? "70%" : "90%";
+  const radiusSize = isSmallScreen ? "80%" : "90%";
   const pointerWidth = isSmallScreen ? 3 : 5;
   const axisLineWidth = isSmallScreen ? 50 : 75;
 
@@ -52,11 +50,11 @@ export const generarKPI = (data, kpi, isSmallScreen) => {
     title: {
       text: title,
       left: "center",
-      top: isSmallScreen ? "15%" : "5%",
+      top: isSmallScreen ? "20%" : "5%",
       textStyle: {
         fontSize: fontSizeTitle,
         fontWeight: "bold",
-        color: "#333",
+        color: "#000000",
       },
     },
     series: [
@@ -74,9 +72,9 @@ export const generarKPI = (data, kpi, isSmallScreen) => {
           lineStyle: {
             width: axisLineWidth,
             color: [
-              [1 / 3, "#333333"],
-              [2 / 3, "#444444"],
-              [1, "#666666"],
+              [1 / 3, "#8cb3e0"],
+              [2 / 3, "#3c6eb4"],
+              [1, "#3354A3"],
             ],
           },
         },
@@ -86,7 +84,7 @@ export const generarKPI = (data, kpi, isSmallScreen) => {
           width: pointerWidth,
           offsetCenter: [0, "-20%"],
           itemStyle: {
-            color: "#B0B0B0",
+            color: "#000000",
           },
         },
 
@@ -97,7 +95,7 @@ export const generarKPI = (data, kpi, isSmallScreen) => {
 
         axisLabel: {
           fontSize: fontSizeLabels,
-          color: "#000",
+          color: "#000000",
           distance: isSmallScreen ? 50 : 30,
           formatter: function (value) {
             if (value === 0) return "0";
@@ -123,7 +121,7 @@ export const generarKPI = (data, kpi, isSmallScreen) => {
           fontSize: fontSizeDetail,
           fontWeight: "bold",
           offsetCenter: [0, "35%"],
-          color: "#555",
+          color: "#000000",
         },
 
         data: [

@@ -68,7 +68,7 @@ const TablaDatos = ({
               fontSize: "16px",
               fontWeight: "bold",
               cursor: "pointer",
-              background: "#333",
+              background: "#3354A3",
               color: "white",
               border: "none",
               borderRadius: "8px",
@@ -83,7 +83,7 @@ const TablaDatos = ({
         style={{
           overflowX: "auto",
           overflowY: "auto",
-          maxHeight: "400px",
+          maxHeight: "600px",
           maxWidth: "90%",
           margin: "0 auto",
           borderRadius: "10px",
@@ -104,7 +104,7 @@ const TablaDatos = ({
               overflow: "hidden",
             }}
           >
-            <thead style={{ background: "#333", color: "white" }}>
+            <thead style={{ background: "#3354A3", color: "white" }}>
               <tr>
                 {headers.map((header) => (
                   <th key={header.key} style={{ padding: "10px" }}>

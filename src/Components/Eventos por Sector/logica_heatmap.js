@@ -4,7 +4,7 @@ export const generateMonthsInRange = (startDate, endDate) => {
   let months = [];
 
   while (start <= end) {
-    let formattedMonth = start.toISOString().slice(0, 7); // Formato YYYY-MM
+    let formattedMonth = start.toISOString().slice(0, 7);
 
     if (!months.includes(formattedMonth)) {
       months.push(formattedMonth);
@@ -36,7 +36,6 @@ export const fetchData_stats_per_month = async (
 
   const sectores = [...new Set(data.map((v) => v.sector))];
 
-  // formatear los datos para el gráfico
   data = data.map((v) => {
     const indexMes = rangeMonths.findIndex((m) => m === v.mes.slice(0, 7));
     const indexSector = sectores.findIndex((s) => s === v.sector);
@@ -59,23 +58,17 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
     ? Math.max(...data[0].map((d) => d[2]))
     : 10;
 
-  const grayPalette = [
-    "#2E2E2E",
-    "#3C3C3C",
-    "#4A4A4A",
-    "#585858",
-    "#666666",
-    "#747474",
-    "#828282",
-    "#909090",
-    "#9E9E9E",
-    "#ACACAC",
-    "#BABABA",
-    "#C8C8C8",
-    "#D6D6D6",
-    "#E4E4E4",
-    "#F2F2F2",
-  ];
+  const heatmapPalette = [
+    "#A4B8F1",
+    "#89A8F1",
+    "#7394E6",
+    "#5E7FD1",
+    "#4A6AC4",
+    "#3354A3",
+    "#1E3D89",
+    "#142B66",
+    "#0A1F50",
+  ].reverse();
 
   const option = {
     title: {
@@ -84,6 +77,7 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
       textStyle: {
         fontSize: 16,
         fontWeight: "bold",
+        color: "#000000",
       },
     },
     tooltip: {
@@ -102,7 +96,7 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
       axisLabel: {
         fontSize: isSmallScreen ? 9 : 12,
         rotate: isSmallScreen ? 90 : 0,
-        color: "#444",
+        color: "#000000",
         formatter: (value) => {
           const date = new Date(value + "-01");
           const monthNames = [
@@ -124,8 +118,8 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
           }}`;
         },
         rich: {
-          a: { fontSize: 12, fontWeight: "bold", color: "#000" },
-          b: { fontSize: 10, color: "#666" },
+          a: { fontSize: 12, fontWeight: "bold", color: "#000000" },
+          b: { fontSize: 10, color: "#000" },
         },
       },
     },
@@ -133,9 +127,11 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
       type: "category",
       data: dataAxisY,
       name: "Sector",
+      nameTextStyle: { color: "#000000" },
       axisLabel: {
         fontSize: isSmallScreen ? 9 : 12,
         rotate: isSmallScreen ? 90 : 0,
+        color: "#000000",
       },
       splitArea: { show: true },
     },
@@ -147,16 +143,18 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
       right: "center",
       top: isSmallScreen ? "10%" : "top",
       inRange: {
-        color: grayPalette.reverse(),
+        color: heatmapPalette,
       },
     },
     series: [
       {
-        name: "Punch Card",
+        name: "Eventos",
         type: "heatmap",
         data: data[0] || [],
         label: {
           show: true,
+          color: "#fff",
+          fontSize: isSmallScreen ? 11 : 14,
         },
         emphasis: {
           itemStyle: {

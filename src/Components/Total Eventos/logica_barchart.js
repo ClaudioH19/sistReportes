@@ -4,7 +4,7 @@ export const generateMonthsInRange = (startDate, endDate) => {
   let months = [];
 
   while (start <= end) {
-    let formattedMonth = start.toISOString().slice(0, 7); // Formato YYYY-MM
+    let formattedMonth = start.toISOString().slice(0, 7);
 
     if (!months.includes(formattedMonth)) {
       months.push(formattedMonth);
@@ -33,15 +33,12 @@ export const fetchData_stats_per_month = async (
 
   let data = await response.json();
 
-  //lista completa de meses dentro del rango
   const monthsRange = generateMonthsInRange(startDate, endDate);
 
-  // crear mapa de datos recibidos para fácil acceso
   const dataMap = new Map(
     data.map((v) => [v.mes.slice(0, 7), v.Total_eventos])
   );
 
-  // alinear los meses de data con los meses del rango en su idx
   const alignedData = monthsRange.map((month) => dataMap.get(month) || 0);
 
   return alignedData;
@@ -57,6 +54,7 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
       textStyle: {
         fontSize: 16,
         fontWeight: "bold",
+        color: "#000000",
       },
     },
     tooltip: {
@@ -77,7 +75,7 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
       axisLabel: {
         fontSize: isSmallScreen ? 9 : 12,
         rotate: isSmallScreen ? 90 : 0,
-        color: "#444",
+        color: "#000",
         formatter: (value) => {
           const date = new Date(value + "-01");
           const monthNames = [
@@ -102,14 +100,14 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
           a: {
             fontSize: 12,
             fontWeight: "bold",
-            color: "#000",
+            color: "#000000",
           },
-          b: { fontSize: 10, color: "#666" },
+          b: { fontSize: 10, color: "#000" },
         },
       },
       axisLine: {
         lineStyle: {
-          color: "#888",
+          color: "#000",
         },
       },
     },
@@ -120,16 +118,17 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
       nameGap: isSmallScreen ? 15 : 50,
       nameTextStyle: {
         padding: isSmallScreen ? [0, -20, 0, 0] : [0, -50, 0, 0],
+        color: "#000000",
       },
       axisLabel: {
         fontSize: 12,
-        color: "#444",
+        color: "#000000",
       },
       splitLine: {
         show: true,
         lineStyle: {
           type: "dashed",
-          color: "#ccc",
+          color: "#89cfe1",
         },
       },
     },
@@ -139,13 +138,13 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
         type: "bar",
         barWidth: "40%",
         itemStyle: {
-          color: "#666",
+          color: "#3354A3",
         },
         label: {
           show: true,
           position: "top",
           fontSize: 12,
-          color: "#444",
+          color: "#000000",
         },
       },
     ],
