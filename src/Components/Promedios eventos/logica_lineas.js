@@ -67,7 +67,7 @@ export const fetchData_stats_per_month = async (
   return alignedData;
 };
 
-export const generarChart = (data, startDate, endDate, graf) => {
+export const generarChart = (data, startDate, endDate, graf, isSmallScreen) => {
   const dataAxisX = generateMonthsInRange(startDate, endDate);
 
   let tittle = "";
@@ -89,14 +89,18 @@ export const generarChart = (data, startDate, endDate, graf) => {
         type: "line",
       },
     },
+    grid: {
+      bottom: "15%",
+    },
     xAxis: {
       type: "category",
       data: dataAxisX,
       name: "Mes",
-      nameLocation: "middle",
-      nameGap: 40,
+      nameLocation: isSmallScreen ? "end" : "middle",
+      nameGap: isSmallScreen ? 10 : 40,
       axisLabel: {
-        fontSize: 12,
+        fontSize: isSmallScreen ? 9 : 12,
+        rotate: isSmallScreen ? 90 : 0,
         color: "#444",
         formatter: (value) => {
           const date = new Date(value + "-01");
@@ -132,8 +136,11 @@ export const generarChart = (data, startDate, endDate, graf) => {
     yAxis: {
       type: "value",
       name: graf === 0 ? "Tiempo (s)" : "Cantidad Involucrados",
-      nameLocation: "middle",
-      nameGap: 50,
+      nameLocation: isSmallScreen ? "end" : "middle",
+      nameGap: isSmallScreen ? 15 : 50,
+      nameTextStyle: {
+        padding: isSmallScreen ? [0, -20, 0, 0] : [0, -50, 0, 0],
+      },
       axisLabel: {
         fontSize: 12,
         color: "#444",

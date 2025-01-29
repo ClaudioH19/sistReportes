@@ -22,7 +22,7 @@ export const fetchData_stats_per_month = async (
   return data;
 };
 
-export const generarChart = (data, startDate, endDate) => {
+export const generarChart = (data, startDate, endDate, isSmallScreen) => {
   const safeData = Array.isArray(data) ? data : [];
   const grayPalette = [
     "#2E2E2E",
@@ -50,23 +50,24 @@ export const generarChart = (data, startDate, endDate) => {
     },
     tooltip: { trigger: "item", formatter: "{b}: {c} ({d}%)" },
     legend: {
-      orient: "vertical",
+      orient: isSmallScreen ? "horizontal" : "vertical",
       right: "10%",
-      top: "center",
-      textStyle: { fontSize: 12, color: "#444" },
+      top: isSmallScreen ? "8%" : "center",
+      textStyle: { fontSize: 14, color: "#444" },
     },
     series: [
       {
+        top: isSmallScreen ? "10%" : "0%",
         name: "Factor de Riesgo",
         type: "pie",
-        radius: ["40%", "70%"],
+        radius: isSmallScreen ? ["30%", "50%"] : ["40%", "70%"],
         avoidLabelOverlap: true,
         itemStyle: { borderRadius: 5, borderColor: "#fff", borderWidth: 2 },
         label: {
           show: true,
           position: "outside",
           formatter: "{c} ({d}%)",
-          fontSize: 12,
+          fontSize: 14,
           color: "#444",
         },
         labelLine: { show: true, length: 10, length2: 10 },

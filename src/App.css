@@ -1,24 +1,25 @@
 .selectorContainer {
     display: flex;
-    align-items: flex-start; 
-    justify-content: flex-start; 
-    padding: 10px 20px;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
     background-color: #f9f9f9;
-    margin: 20px auto;
-    max-width: 1200px; 
+    margin: 20px 20px; 
+    width: 70%; 
     gap: 15px;
-    flex-wrap: wrap;
+    overflow-x: hidden; 
 }
 
 .selectWrapper {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    flex-basis: auto; 
     margin: 0 5px;
-    min-width: 200px;
-    max-width: 250px; 
+    min-width: 220px;
+    max-width: 250px;
 }
 
 .selectWrapper label {
@@ -30,7 +31,7 @@
 .ant-picker,
 .basicSingle {
     width: 100%;
-    min-width: 200px; 
+    min-width: 220px;
     max-width: 250px;
 }
 
@@ -51,7 +52,10 @@
     border-radius: 5px;
     font-size: 14px;
     transition: background 0.3s;
+    margin-top: 1.5%;
     min-width: 140px;
+    align-self: center;
+    height: 35px;
 }
 
 .dataButton:hover {
@@ -65,18 +69,18 @@
 
 @media (max-width: 768px) {
     .selectorContainer {
-        flex-direction: column; 
-        align-items: flex-start; 
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; 
         width: 100%;
+        max-width: 100%;
         padding: 10px;
+        margin: auto;
     }
 
-    .selectWrapper {
-        width: 100%;
-        max-width: none; 
-    }
 
     .dataButton {
         width: 100%;
+        max-width: 250px; 
     }
 }

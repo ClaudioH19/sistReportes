@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import ReactECharts from "echarts-for-react";
-import { option, fetchData_KPI_stats, generarKPI } from "./logica_kpis";
+import { fetchData_KPI_stats, generarKPI } from "./logica_kpis";
 
 const KPIS = ({ startDate, endDate, sector, factor, isSmallScreen }) => {
   const [data, setData] = useState(0);
@@ -24,21 +24,21 @@ const KPIS = ({ startDate, endDate, sector, factor, isSmallScreen }) => {
   return (
     <div style={{ width: "100%", display: "flex", flexDirection: "row" }}>
       <ReactECharts
-        option={generarKPI(data.Total_eventos, 1)}
+        option={generarKPI(data.Total_eventos, 1, isSmallScreen)}
         style={{
           width: "33%",
           margin: "0 auto",
         }}
       />
       <ReactECharts
-        option={generarKPI(data.Promedio_duracion, 2)}
+        option={generarKPI(data.Promedio_duracion, 2, isSmallScreen)}
         style={{
           width: "33%",
           margin: "0 auto",
         }}
       />
       <ReactECharts
-        option={generarKPI(data.Promedio_involucrado, 3)}
+        option={generarKPI(data.Promedio_involucrado, 3, isSmallScreen)}
         style={{
           width: "33%",
           margin: "0 auto",

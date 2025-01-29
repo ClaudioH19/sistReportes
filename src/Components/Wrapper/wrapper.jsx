@@ -6,7 +6,13 @@ import LineCharts from "../Promedios eventos/LineCharts";
 import PieChart from "../Eventos por Factor/pieChart";
 import HeatmapChart from "../Eventos por Sector/heatmapChart";
 
-const Wrapper = ({ startMonth, endMonth, selectedSector, selectedFactor }) => {
+const Wrapper = ({
+  startMonth,
+  endMonth,
+  selectedSector,
+  selectedFactor,
+  isSmallScreen,
+}) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.containerCharts}>
@@ -15,6 +21,7 @@ const Wrapper = ({ startMonth, endMonth, selectedSector, selectedFactor }) => {
           endDate={endMonth}
           sector={selectedSector}
           factor={selectedFactor}
+          isSmallScreen={isSmallScreen}
         />
       </div>
 
@@ -24,6 +31,7 @@ const Wrapper = ({ startMonth, endMonth, selectedSector, selectedFactor }) => {
           endDate={endMonth}
           sector={selectedSector}
           factor={selectedFactor}
+          isSmallScreen={isSmallScreen}
         />
       </div>
 
@@ -33,6 +41,7 @@ const Wrapper = ({ startMonth, endMonth, selectedSector, selectedFactor }) => {
           endDate={endMonth}
           sector={selectedSector}
           factor={selectedFactor}
+          isSmallScreen={isSmallScreen}
         />
       </div>
 
@@ -42,6 +51,7 @@ const Wrapper = ({ startMonth, endMonth, selectedSector, selectedFactor }) => {
           endDate={endMonth}
           sector={selectedSector}
           factor={selectedFactor}
+          isSmallScreen={isSmallScreen}
         />
       </div>
 
@@ -51,6 +61,7 @@ const Wrapper = ({ startMonth, endMonth, selectedSector, selectedFactor }) => {
           endDate={endMonth}
           sector={selectedSector}
           factor={selectedFactor}
+          isSmallScreen={isSmallScreen}
         />
       </div>
     </div>

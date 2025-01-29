@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import dayjs from "dayjs";
 import "antd/dist/reset.css";
@@ -16,6 +16,19 @@ function App() {
   );
   const [selectedSector, setSelectedSector] = useState("");
   const [selectedFactor, setSelectedFactor] = useState("");
+
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 768); // Se actualiza si el ancho es menor a 768px
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <Router>
@@ -39,6 +52,7 @@ function App() {
               endMonth={endMonth}
               selectedSector={selectedSector}
               selectedFactor={selectedFactor}
+              isSmallScreen={isSmallScreen}
             />
           }
         />
@@ -50,6 +64,7 @@ function App() {
               endMonth={endMonth}
               selectedSector={selectedSector}
               selectedFactor={selectedFactor}
+              isSmallScreen={isSmallScreen}
             />
           }
         />

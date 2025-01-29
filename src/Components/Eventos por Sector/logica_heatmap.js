@@ -51,7 +51,7 @@ export const fetchData_stats_per_month = async (
   return [data, sectores];
 };
 
-export const generarChart = (data, startDate, endDate) => {
+export const generarChart = (data, startDate, endDate, isSmallScreen) => {
   const dataAxisY = data[1] || [];
   const dataAxisX = generateMonthsInRange(startDate, endDate);
 
@@ -90,17 +90,18 @@ export const generarChart = (data, startDate, endDate) => {
       position: "top",
     },
     grid: {
-      top: "15%",
+      top: isSmallScreen ? "25%" : "15%",
     },
     xAxis: {
       type: "category",
       data: dataAxisX,
       name: "Mes",
-      nameLocation: "middle",
-      nameGap: 40,
+      nameLocation: isSmallScreen ? "end" : "middle",
+      nameGap: isSmallScreen ? 10 : 40,
       splitArea: { show: true },
       axisLabel: {
-        fontSize: 12,
+        fontSize: isSmallScreen ? 9 : 12,
+        rotate: isSmallScreen ? 90 : 0,
         color: "#444",
         formatter: (value) => {
           const date = new Date(value + "-01");
@@ -132,6 +133,10 @@ export const generarChart = (data, startDate, endDate) => {
       type: "category",
       data: dataAxisY,
       name: "Sector",
+      axisLabel: {
+        fontSize: isSmallScreen ? 9 : 12,
+        rotate: isSmallScreen ? 90 : 0,
+      },
       splitArea: { show: true },
     },
     visualMap: {
@@ -140,7 +145,7 @@ export const generarChart = (data, startDate, endDate) => {
       calculable: true,
       orient: "horizontal",
       right: "center",
-      top: "top",
+      top: isSmallScreen ? "10%" : "top",
       inRange: {
         color: grayPalette.reverse(),
       },

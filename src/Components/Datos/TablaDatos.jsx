@@ -11,10 +11,12 @@ const TablaDatos = ({
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 1000;
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         let result = await fetchDataTabla(
           selectedSector,
           selectedFactor,
@@ -24,6 +26,8 @@ const TablaDatos = ({
         setData(result);
       } catch (err) {
         console.error("Error fetching data:", err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -85,43 +89,48 @@ const TablaDatos = ({
           borderRadius: "10px",
           border: "1px solid #ddd",
           boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          minHeight: "300px",
         }}
       >
-        <table
-          border="1"
-          style={{
-            width: "100%",
-            borderCollapse: "collapse",
-            borderRadius: "10px",
-            overflow: "hidden",
-          }}
-        >
-          <thead style={{ background: "#333", color: "white" }}>
-            <tr>
-              {headers.map((header) => (
-                <th key={header.key} style={{ padding: "10px" }}>
-                  {header.label}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {paginatedData.map((row, index) => (
-              <tr
-                key={index}
-                style={{ background: index % 2 === 0 ? "#f8f9fa" : "white" }}
-              >
-                <td style={{ padding: "10px" }}>{row[0]}</td>
-                <td style={{ padding: "10px" }}>{row[1]}</td>
-                <td style={{ padding: "10px" }}>{row[2]}</td>
-                <td style={{ padding: "10px" }}>{row[3]}</td>
-                <td style={{ padding: "10px" }}>{row[4]}</td>
-                <td style={{ padding: "10px" }}>{row[5]}</td>
-                <td style={{ padding: "10px" }}>{row[6]}</td>
+        {loading ? (
+          <p>Cargando datos...</p>
+        ) : (
+          <table
+            border="1"
+            style={{
+              width: "100%",
+              borderCollapse: "collapse",
+              borderRadius: "10px",
+              overflow: "hidden",
+            }}
+          >
+            <thead style={{ background: "#333", color: "white" }}>
+              <tr>
+                {headers.map((header) => (
+                  <th key={header.key} style={{ padding: "10px" }}>
+                    {header.label}
+                  </th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {paginatedData.map((row, index) => (
+                <tr
+                  key={index}
+                  style={{ background: index % 2 === 0 ? "#f8f9fa" : "white" }}
+                >
+                  <td style={{ padding: "10px" }}>{row[0]}</td>
+                  <td style={{ padding: "10px" }}>{row[1]}</td>
+                  <td style={{ padding: "10px" }}>{row[2]}</td>
+                  <td style={{ padding: "10px" }}>{row[3]}</td>
+                  <td style={{ padding: "10px" }}>{row[4]}</td>
+                  <td style={{ padding: "10px" }}>{row[5]}</td>
+                  <td style={{ padding: "10px" }}>{row[6]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
       <div style={{ marginTop: "10px" }}>
         <button

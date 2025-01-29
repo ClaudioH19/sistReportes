@@ -34,7 +34,7 @@ const LineCharts = ({ startDate, endDate, sector, factor, isSmallScreen }) => {
   return (
     <div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
       <ReactECharts
-        option={generarChart(dataD, startDate, endDate, 0)}
+        option={generarChart(dataD, startDate, endDate, 0, isSmallScreen)}
         style={{
           width: "100%",
           minHeight: "600px",
@@ -42,7 +42,7 @@ const LineCharts = ({ startDate, endDate, sector, factor, isSmallScreen }) => {
         }}
       />
       <ReactECharts
-        option={generarChart(dataI, startDate, endDate, 1)}
+        option={generarChart(dataI, startDate, endDate, 1, isSmallScreen)}
         style={{
           width: "100%",
           minHeight: "600px",

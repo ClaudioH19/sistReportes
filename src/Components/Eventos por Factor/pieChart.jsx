@@ -25,7 +25,7 @@ const PieChart = ({ startDate, endDate, sector, factor, isSmallScreen }) => {
   return (
     <div style={{ width: "100%" }}>
       <ReactECharts
-        option={generarChart(data, startDate, endDate)}
+        option={generarChart(data, startDate, endDate, isSmallScreen)}
         style={{
           width: "100%",
           minHeight: "600px",

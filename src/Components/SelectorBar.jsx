@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { DatePicker } from "antd";
 import Select from "react-select";
 import dayjs from "dayjs";
@@ -17,6 +17,7 @@ const SelectorBar = ({
   setSelectedFactor,
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [sectores, setSectores] = useState([]);
   const [factores, setFactores] = useState([]);
 
@@ -75,7 +76,7 @@ const SelectorBar = ({
   return (
     <div className="selectorContainer">
       <div className="selectWrapper">
-        <label>Año, Mes</label>
+        <label>Fecha</label>
         <DatePicker
           value={endMonth ? dayjs(endMonth) : null}
           onChange={handleMonthChange}
@@ -110,8 +111,14 @@ const SelectorBar = ({
         />
       </div>
 
-      <button className="dataButton" onClick={() => navigate("/datos")}>
-        <i className="fa-solid fa-table"></i> Ver Datos
+      <button
+        className="dataButton"
+        onClick={() =>
+          navigate(location.pathname === "/datos" ? "/" : "/datos")
+        }
+      >
+        <i className="fa-solid fa-table"></i>{" "}
+        {location.pathname === "/datos" ? "Volver" : "Ver Datos"}
       </button>
     </div>
   );
