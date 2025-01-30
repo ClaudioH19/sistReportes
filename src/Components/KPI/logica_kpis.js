@@ -25,11 +25,18 @@ export const fetchData_KPI_stats = async (
 
 export const generarKPI = (data, kpi, isSmallScreen) => {
   data = parseFloat(data).toFixed(1);
-
   let totalEventos = data || 1;
-  const orderOfMagnitude = Math.pow(10, Math.floor(Math.log10(totalEventos)));
-  const maxValue =
-    Math.ceil(totalEventos / orderOfMagnitude) * orderOfMagnitude;
+  let orderOfMagnitude = 1;
+
+  if (kpi === 1) orderOfMagnitude = 15000;
+  else if (kpi === 2) orderOfMagnitude = 15;
+  else orderOfMagnitude = 15;
+
+  if (data > orderOfMagnitude) orderOfMagnitude = data;
+
+  let maxValue = 1;
+  if (data !== 0)
+    maxValue = Math.ceil(totalEventos / orderOfMagnitude) * orderOfMagnitude;
 
   let title = "";
   if (kpi === 1) title = "Hallazgos Totales Registrados";

@@ -8,7 +8,8 @@ export const axis_color = "#000000";
 export const split_line_color = "#89cfe1";
 
 //rango bueno-intermedio-malo
-export const kpis_color = ["#8cb3e0", "#3c6eb4", "#3354A3"];
+//export const kpis_color = ["#8cb3e0", "#3c6eb4", "#3354A3"];
+export const kpis_color = ["#4CAF50", "#FFC107", "#D32F2F"];
 export const barchart_color = "#3354A3";
 
 // linea-item colors
@@ -42,4 +43,4 @@ export const heatmapchart_colors = [
   "#1E3D89",
   "#142B66",
   "#0A1F50",
-].reverse();
+];
