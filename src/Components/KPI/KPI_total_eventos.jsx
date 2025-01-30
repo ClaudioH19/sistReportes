@@ -3,6 +3,10 @@ import ReactECharts from "echarts-for-react";
 import { fetchData_KPI_stats, generarKPI } from "./logica_kpis";
 
 const KPIS = ({ startDate, endDate, sector, factor, isSmallScreen }) => {
+  //arreglo para traquear el ultimo mes solo
+  const parts = endDate.split("-");
+  startDate = parts[0] + "-" + parts[1] + "-01";
+
   const [data, setData] = useState(0);
 
   useEffect(() => {

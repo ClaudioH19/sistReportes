@@ -1,3 +1,10 @@
+import {
+  axis_color,
+  text_color,
+  split_line_color,
+  linechart_color,
+} from "../paleta_colores";
+
 export const generateMonthsInRange = (startDate, endDate) => {
   let start = new Date(startDate);
   let end = new Date(endDate);
@@ -68,8 +75,8 @@ export const generarChart = (data, startDate, endDate, graf, isSmallScreen) => {
   const dataAxisX = generateMonthsInRange(startDate, endDate);
 
   let tittle = "";
-  if (graf === 0) tittle = "Duración Promedio por Mes";
-  else tittle = "Promedio Involucrados por Mes";
+  if (graf === 0) tittle = "Duración Promedio de Hallazgos Mensuales";
+  else tittle = "Promedio Mensual de Trabajadores Expuestos";
 
   const option = {
     title: {
@@ -99,7 +106,7 @@ export const generarChart = (data, startDate, endDate, graf, isSmallScreen) => {
       axisLabel: {
         fontSize: isSmallScreen ? 9 : 12,
         rotate: isSmallScreen ? 90 : 0,
-        color: "#000000",
+        color: text_color,
         formatter: (value) => {
           const date = new Date(value + "-01");
           const monthNames = [
@@ -116,39 +123,39 @@ export const generarChart = (data, startDate, endDate, graf, isSmallScreen) => {
             "Noviembre",
             "Diciembre",
           ];
-          return `{a|${monthNames[date.getMonth()]}}\n{b|${
+          return `{a|${monthNames[(date.getMonth() + 1) % 12]}}\n{b|${
             value.split("-")[0]
           }}`;
         },
         rich: {
-          a: { fontSize: 12, fontWeight: "bold", color: "#000000" },
-          b: { fontSize: 10, color: "#000" },
+          a: { fontSize: 12, fontWeight: "bold", color: text_color },
+          b: { fontSize: 10, color: text_color },
         },
       },
       axisLine: {
         lineStyle: {
-          color: "#000",
+          color: axis_color,
         },
       },
     },
     yAxis: {
       type: "value",
-      name: graf === 0 ? "Tiempo (s)" : "N° Involucrados",
+      name: graf === 0 ? "Tiempo (s)" : "N° Expuestos",
       nameLocation: isSmallScreen ? "end" : "middle",
       nameGap: isSmallScreen ? 15 : 50,
       nameTextStyle: {
         padding: isSmallScreen ? [0, -20, 0, 0] : [0, -50, 0, 0],
-        color: "#000000",
+        color: text_color,
       },
       axisLabel: {
         fontSize: 12,
-        color: "#000000",
+        color: text_color,
       },
       splitLine: {
         show: true,
         lineStyle: {
           type: "dashed",
-          color: "#A4B8E1",
+          color: split_line_color,
         },
       },
     },
@@ -160,16 +167,16 @@ export const generarChart = (data, startDate, endDate, graf, isSmallScreen) => {
         symbolSize: 6,
         lineStyle: {
           width: 3,
-          color: "#5E77C4",
+          color: linechart_color[0],
         },
         itemStyle: {
-          color: "#A4B8E1",
+          color: linechart_color[1],
         },
         label: {
           show: true,
           position: "top",
           fontSize: 12,
-          color: "#000000",
+          color: text_color,
         },
       },
     ],

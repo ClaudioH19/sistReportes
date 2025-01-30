@@ -1,3 +1,5 @@
+import { kpis_color, text_color } from "../paleta_colores";
+
 export const fetchData_KPI_stats = async (
   sector,
   factor,
@@ -30,17 +32,17 @@ export const generarKPI = (data, kpi, isSmallScreen) => {
     Math.ceil(totalEventos / orderOfMagnitude) * orderOfMagnitude;
 
   let title = "";
-  if (kpi === 1) title = "Total Eventos Registrados";
-  else if (kpi === 2) title = "Media de Segundos por Evento";
-  else title = "Media de Involucrados por Evento";
+  if (kpi === 1) title = "Hallazgos Totales Registrados";
+  else if (kpi === 2) title = "Promedio de Segundos por Hallazgo";
+  else title = "Promedio de Trabajadores por Hallazgo";
 
   if (isSmallScreen) {
-    if (kpi === 1) title = "Total Eventos";
-    else if (kpi === 2) title = "Prom. Segundos/Event";
-    else title = "Prom. Involucrados/Event";
+    if (kpi === 1) title = "Total Hallazgos";
+    else if (kpi === 2) title = "Prom. Segundos \npor Hallazgo";
+    else title = "Prom. Trabajadores \npor Hallazgo";
   }
 
-  const fontSizeTitle = isSmallScreen ? 9 : 18;
+  const fontSizeTitle = isSmallScreen ? 14 : 18;
   const fontSizeLabels = isSmallScreen ? 10 : 12;
   const fontSizeDetail = isSmallScreen ? 15 : 25;
   const radiusSize = isSmallScreen ? "80%" : "90%";
@@ -55,7 +57,7 @@ export const generarKPI = (data, kpi, isSmallScreen) => {
       textStyle: {
         fontSize: fontSizeTitle,
         fontWeight: "bold",
-        color: "#000000",
+        color: text_color,
       },
     },
     series: [
@@ -73,9 +75,9 @@ export const generarKPI = (data, kpi, isSmallScreen) => {
           lineStyle: {
             width: axisLineWidth,
             color: [
-              [1 / 3, "#8cb3e0"],
-              [2 / 3, "#3c6eb4"],
-              [1, "#3354A3"],
+              [1 / 3, kpis_color[0]],
+              [2 / 3, kpis_color[1]],
+              [1, kpis_color[2]],
             ],
           },
         },
@@ -85,7 +87,7 @@ export const generarKPI = (data, kpi, isSmallScreen) => {
           width: pointerWidth,
           offsetCenter: [0, "-20%"],
           itemStyle: {
-            color: "#000000",
+            color: text_color,
           },
         },
 
@@ -96,7 +98,7 @@ export const generarKPI = (data, kpi, isSmallScreen) => {
 
         axisLabel: {
           fontSize: fontSizeLabels,
-          color: "#000000",
+          color: text_color,
           distance: isSmallScreen ? 50 : 30,
           formatter: function (value) {
             if (value === 0) return "0";
@@ -122,7 +124,7 @@ export const generarKPI = (data, kpi, isSmallScreen) => {
           fontSize: fontSizeDetail,
           fontWeight: "bold",
           offsetCenter: [0, "35%"],
-          color: "#000000",
+          color: text_color,
         },
 
         data: [

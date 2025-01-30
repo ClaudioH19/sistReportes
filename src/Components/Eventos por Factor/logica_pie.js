@@ -1,3 +1,5 @@
+import { text_color, donutchart_colors } from "../paleta_colores";
+
 export const fetchData_stats_per_month = async (
   sector,
   factor,
@@ -22,36 +24,19 @@ export const fetchData_stats_per_month = async (
 
 export const generarChart = (data, startDate, endDate, isSmallScreen) => {
   const safeData = Array.isArray(data) ? data : [];
-  const bluePalette = [
-    "#3354A3",
-    "#1E3D89",
-    "#4F6FD1",
-    "#142B66",
-    "#6B89D1",
-    "#213D73",
-    "#89A3E6",
-    "#102654",
-    "#A4B8F1",
-    "#0D1D40",
-    "#C7DAFF",
-    "#08132B",
-    "#E0ECFF",
-    "#040915",
-    "#F2F6FF",
-  ];
 
   const option = {
     title: {
-      text: "Total de Eventos por Factor de Riesgo",
+      text: "Cantidad de Hallazgos por Factor de Riesgo",
       left: "left",
-      textStyle: { fontSize: 16, fontWeight: "bold", color: "#000000" },
+      textStyle: { fontSize: 16, fontWeight: "bold", color: text_color },
     },
     tooltip: { trigger: "item", formatter: "{b}: {c} ({d}%)" },
     legend: {
       orient: isSmallScreen ? "horizontal" : "vertical",
       right: "10%",
       top: isSmallScreen ? "8%" : "center",
-      textStyle: { fontSize: 14, color: "#000000" },
+      textStyle: { fontSize: 14, color: text_color },
     },
     series: [
       {
@@ -66,13 +51,13 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
           position: "outside",
           formatter: "{c} ({d}%)",
           fontSize: 14,
-          color: "#000000",
+          color: text_color,
         },
         labelLine: { show: true, length: 10, length2: 10 },
         emphasis: { label: { show: true, fontSize: 14, fontWeight: "bold" } },
         data: safeData.map((item, i) => ({
           ...item,
-          itemStyle: { color: bluePalette[i % bluePalette.length] },
+          itemStyle: { color: donutchart_colors[i % donutchart_colors.length] },
         })),
       },
     ],

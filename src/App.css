@@ -1,16 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500&display=swap');
+
 .selectorContainer {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     padding: 20px;
-    border: 0px solid #2b5fa8;
+    border: 0px solid var(--primary-color);
     border-radius: 8px;
-    background-color: #f9f9f9;
+    background-color: var(--background-color);
     margin: 20px 20px; 
-    width: 70%; 
     gap: 15px;
     position: relative; 
+    justify-content: space-between; 
 }
+
+.filtersContainer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-grow: 0.5;
+}
+
+.logoContainer {
+    margin-right: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.logoImage {
+    width: 80px;
+    height: auto;
+}
+
+.logoText {
+    font-size: 40px;
+    font-weight: bold;
+    color: #000;
+    letter-spacing: 2px;
+    font-family: 'Orbitron', sans-serif;
+  }
 
 
 .selectWrapper {
@@ -19,7 +48,6 @@
     flex-grow: 1;
     flex-basis: auto; 
     margin: 0 5px;
-    min-width: 220px;
     max-width: 250px;
     position: relative;
 }
@@ -30,12 +58,6 @@
     margin-bottom: 5px;
 }
 
-.ant-picker,
-.basicSingle {
-    width: 100%;
-    min-width: 220px;
-    max-width: 250px;
-}
 
 
 .basicSingle .ant-select-dropdown {
@@ -44,7 +66,7 @@
 }
 
 .dataButton {
-    background-color: #0e3c78;
+    background-color: var(--primary-color);
     color: white;
     border: none;
     padding: 10px 15px;
@@ -56,40 +78,68 @@
     border-radius: 5px;
     font-size: 14px;
     transition: background 0.3s;
-    margin-top: 1.5%;
-    min-width: 140px;
+    margin-top: 2%;
     align-self: center;
     height: 35px;
 }
 
 .dataButton:hover {
-    background-color: #1b487f;
+    background-color: var(--secondary-color);
 }
 
 .icon {
     font-size: 18px;
 }
 
+@media (max-width: 1050px) {
+    .logoContainer {
+        order: -1;
+    }
+}
+
+
 @media (max-width: 768px) {
     .selectorContainer {
         flex-direction: column;
         align-items: center;
-        justify-content: center; 
-        width: 100%;
-        max-width: 100%;
         padding: 10px;
-        margin: auto;
-
-        padding: 20px;
-        border: 0px;
+        width: 100%;
+        margin: 0;
         border-radius: 0px;
-        background-color: #f6f1f6f0;
-
+    }
     
+    .filtersContainer {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .selectWrapper {
+        width: 100%;
+        max-width: 300px;
     }
 
     .dataButton {
         width: 100%;
-        max-width: 250px; 
+        max-width: 300px;
+    }
+    
+    .logoContainer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logoImage {
+        width: 50px;
+    }
+    
+    .logoText {
+        font-size: 24px;
+    }
+    .logoContainer {
+        order: -1;
     }
 }
+
+
+

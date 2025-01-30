@@ -1,4 +1,8 @@
+import { color } from "echarts";
+import { heatmapchart_colors, text_color, axis_color } from "../paleta_colores";
+
 export const generateMonthsInRange = (startDate, endDate) => {
+  console.log(startDate, endDate);
   let start = new Date(startDate);
   let end = new Date(endDate);
   let months = [];
@@ -58,26 +62,14 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
     ? Math.max(...data[0].map((d) => d[2]))
     : 10;
 
-  const heatmapPalette = [
-    "#A4B8F1",
-    "#89A8F1",
-    "#7394E6",
-    "#5E7FD1",
-    "#4A6AC4",
-    "#3354A3",
-    "#1E3D89",
-    "#142B66",
-    "#0A1F50",
-  ].reverse();
-
   const option = {
     title: {
-      text: "Total de Eventos por Sector",
+      text: "Cantidad de Hallazgos por Sector",
       left: "left",
       textStyle: {
         fontSize: 16,
         fontWeight: "bold",
-        color: "#000000",
+        color: text_color,
       },
     },
     tooltip: {
@@ -93,11 +85,13 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
       name: "Mes",
       nameLocation: isSmallScreen ? "end" : "middle",
       nameGap: isSmallScreen ? 10 : 40,
+      nameTextStyle: {
+        color: text_color,
+      },
       splitArea: { show: true },
       axisLabel: {
         fontSize: isSmallScreen ? 9 : 12,
         rotate: isSmallScreen ? 90 : 0,
-        color: "#000000",
         formatter: (value) => {
           const date = new Date(value + "-01");
           const monthNames = [
@@ -114,13 +108,13 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
             "Noviembre",
             "Diciembre",
           ];
-          return `{a|${monthNames[date.getMonth()]}}\n{b|${
+          return `{a|${monthNames[(date.getMonth() + 1) % 12]}}\n{b|${
             value.split("-")[0]
           }}`;
         },
         rich: {
-          a: { fontSize: 12, fontWeight: "bold", color: "#000000" },
-          b: { fontSize: 10, color: "#000" },
+          a: { fontSize: 12, fontWeight: "bold", color: text_color },
+          b: { fontSize: 10, color: text_color },
         },
       },
     },
@@ -128,11 +122,11 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
       type: "category",
       data: dataAxisY,
       name: "Sector",
-      nameTextStyle: { color: "#000000" },
+      nameTextStyle: { color: text_color },
       axisLabel: {
         fontSize: isSmallScreen ? 9 : 12,
         rotate: isSmallScreen ? 90 : 0,
-        color: "#000000",
+        color: axis_color,
       },
       splitArea: { show: true },
     },
@@ -144,7 +138,7 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
       right: "center",
       top: isSmallScreen ? "10%" : "top",
       inRange: {
-        color: heatmapPalette,
+        color: heatmapchart_colors,
       },
     },
     series: [

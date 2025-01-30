@@ -1,3 +1,10 @@
+import {
+  split_line_color,
+  barchart_color,
+  text_color,
+  axis_color,
+} from "../paleta_colores";
+
 export const generateMonthsInRange = (startDate, endDate) => {
   let start = new Date(startDate);
   let end = new Date(endDate);
@@ -49,12 +56,12 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
 
   const option = {
     title: {
-      text: "Total de Eventos por Mes",
+      text: "Total de Hallazgos Mensuales",
       left: "left",
       textStyle: {
         fontSize: 16,
         fontWeight: "bold",
-        color: "#000000",
+        color: text_color,
       },
     },
     tooltip: {
@@ -92,7 +99,7 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
             "Noviembre",
             "Diciembre",
           ];
-          return `{a|${monthNames[date.getMonth()]}}\n{b|${
+          return `{a|${monthNames[(date.getMonth() + 1) % 12]}}\n{b|${
             value.split("-")[0]
           }}`;
         },
@@ -113,22 +120,22 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
     },
     yAxis: {
       type: "value",
-      name: "Tiempo (s)",
+      name: "N° Hallazgos",
       nameLocation: isSmallScreen ? "end" : "middle",
       nameGap: isSmallScreen ? 15 : 50,
       nameTextStyle: {
         padding: isSmallScreen ? [0, -20, 0, 0] : [0, -50, 0, 0],
-        color: "#000000",
+        color: text_color,
       },
       axisLabel: {
         fontSize: 12,
-        color: "#000000",
+        color: axis_color,
       },
       splitLine: {
         show: true,
         lineStyle: {
           type: "dashed",
-          color: "#89cfe1",
+          color: split_line_color,
         },
       },
     },
@@ -138,13 +145,13 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
         type: "bar",
         barWidth: "40%",
         itemStyle: {
-          color: "#3354A3",
+          color: barchart_color,
         },
         label: {
           show: true,
           position: "top",
           fontSize: 12,
-          color: "#000000",
+          color: text_color,
         },
       },
     ],

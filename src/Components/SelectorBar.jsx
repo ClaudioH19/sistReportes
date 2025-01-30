@@ -75,51 +75,54 @@ const SelectorBar = ({
 
   return (
     <div className="selectorContainer">
-      <div className="selectWrapper">
-        <label>Fecha</label>
-        <DatePicker
-          value={endMonth ? dayjs(endMonth) : null}
-          onChange={handleMonthChange}
-          picker="month"
-          placeholder="Seleccione un mes"
-          className="ant-picker"
-          allowClear={true}
-        />
+      <div className="filtersContainer">
+        <div className="selectWrapper">
+          <label>Fecha</label>
+          <DatePicker
+            value={endMonth ? dayjs(endMonth) : null}
+            onChange={handleMonthChange}
+            picker="month"
+            placeholder="Seleccione un mes"
+            className="ant-picker"
+            allowClear={true}
+          />
+        </div>
+        <div className="selectWrapper">
+          <label>Sector</label>
+          <Select
+            isClearable={true}
+            options={sectores}
+            onChange={(option) => setSelectedSector(option?.value || "")}
+            value={sectores.find((s) => s.value === selectedSector) || null}
+            placeholder="Todas"
+            className="basicSingle"
+          />
+        </div>
+        <div className="selectWrapper">
+          <label>Factor de Riesgo</label>
+          <Select
+            isClearable={true}
+            options={factores}
+            onChange={(option) => setSelectedFactor(option?.value || "")}
+            value={factores.find((f) => f.value === selectedFactor) || null}
+            placeholder="Todas"
+            className="basicSingle"
+          />
+        </div>
+        <button
+          className="dataButton"
+          onClick={() =>
+            navigate(location.pathname === "/datos" ? "/" : "/datos")
+          }
+        >
+          <i className="fa-solid fa-table"></i>{" "}
+          {location.pathname === "/datos" ? "Volver" : "Ver Datos"}
+        </button>
       </div>
-
-      <div className="selectWrapper">
-        <label>Sector</label>
-        <Select
-          isClearable={true}
-          options={sectores}
-          onChange={(option) => setSelectedSector(option?.value || "")}
-          value={sectores.find((s) => s.value === selectedSector) || null}
-          placeholder="Todas"
-          className="basicSingle"
-        />
+      <div className="logoContainer">
+        <img src="/logo.png" alt="Logo" className="logoImage" />
+        <label className="logoText">SafetyMind</label>
       </div>
-
-      <div className="selectWrapper">
-        <label>Factor de Riesgo</label>
-        <Select
-          isClearable={true}
-          options={factores}
-          onChange={(option) => setSelectedFactor(option?.value || "")}
-          value={factores.find((f) => f.value === selectedFactor) || null}
-          placeholder="Todas"
-          className="basicSingle"
-        />
-      </div>
-
-      <button
-        className="dataButton"
-        onClick={() =>
-          navigate(location.pathname === "/datos" ? "/" : "/datos")
-        }
-      >
-        <i className="fa-solid fa-table"></i>{" "}
-        {location.pathname === "/datos" ? "Volver" : "Ver Datos"}
-      </button>
     </div>
   );
 };

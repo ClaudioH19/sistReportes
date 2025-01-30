@@ -1,4 +1,8 @@
 export const fetchDataTabla = async (sector, factor, startDate, endDate) => {
+  //rastrear solo el mismo mes
+  const parts = endDate.split("-");
+  startDate = parts[0] + "-" + parts[1] + "-01";
+
   const response = await fetch(
     `http://127.0.0.1:8000/api/data?factor=${factor}&sector=${sector}&startdate=${startDate}&enddate=${endDate}`
   );

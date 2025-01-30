@@ -7,6 +7,7 @@ const TablaDatos = ({
   endMonth,
   selectedSector,
   selectedFactor,
+  isSmallScreen,
 }) => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -51,7 +52,9 @@ const TablaDatos = ({
 
   return (
     <div style={{ textAlign: "center", padding: "20px" }}>
-      <h1>Reporte de Eventos: {data.length} Registros</h1>
+      <h1 style={{ fontSize: isSmallScreen ? "20px" : "24px" }}>
+        Hallazgos del Mes: {data.length} Registros
+      </h1>
       <div
         style={{
           display: "flex",
@@ -64,7 +67,7 @@ const TablaDatos = ({
         <CSVLink data={[headers, ...data]} filename={"datos.csv"}>
           <button
             style={{
-              padding: "10px 20px",
+              padding: isSmallScreen ? "5px 10px" : "10px 20px",
               fontSize: "16px",
               fontWeight: "bold",
               cursor: "pointer",
@@ -73,6 +76,7 @@ const TablaDatos = ({
               border: "none",
               borderRadius: "8px",
               boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+              marginBottom: "5px",
             }}
           >
             Generar CSV
@@ -83,17 +87,19 @@ const TablaDatos = ({
         style={{
           overflowX: "auto",
           overflowY: "auto",
-          maxHeight: "600px",
-          maxWidth: "90%",
+          maxHeight: isSmallScreen ? "400px" : "600px",
+          maxWidth: isSmallScreen ? "100%" : "90%",
           margin: "0 auto",
           borderRadius: "10px",
           border: "1px solid #ddd",
           boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-          minHeight: "300px",
+          minHeight: "250px",
         }}
       >
         {loading ? (
-          <p>Cargando datos...</p>
+          <p style={{ fontSize: isSmallScreen ? "14px" : "16px" }}>
+            Cargando datos...
+          </p>
         ) : (
           <table
             border="1"
@@ -102,12 +108,16 @@ const TablaDatos = ({
               borderCollapse: "collapse",
               borderRadius: "10px",
               overflow: "hidden",
+              fontSize: isSmallScreen ? "12px" : "14px",
             }}
           >
             <thead style={{ background: "#3354A3", color: "white" }}>
               <tr>
                 {headers.map((header, index) => (
-                  <th key={index} style={{ padding: "10px" }}>
+                  <th
+                    key={index}
+                    style={{ padding: isSmallScreen ? "6px" : "10px" }}
+                  >
                     {header}
                   </th>
                 ))}
@@ -117,10 +127,15 @@ const TablaDatos = ({
               {paginatedData.map((row, index) => (
                 <tr
                   key={index}
-                  style={{ background: index % 2 === 0 ? "#f8f9fa" : "white" }}
+                  style={{
+                    background: index % 2 === 0 ? "#f8f9fa" : "white",
+                  }}
                 >
                   {row.map((cell, cellIndex) => (
-                    <td key={cellIndex} style={{ padding: "10px" }}>
+                    <td
+                      key={cellIndex}
+                      style={{ padding: isSmallScreen ? "6px" : "10px" }}
+                    >
                       {cell}
                     </td>
                   ))}

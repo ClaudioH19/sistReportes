@@ -6,6 +6,11 @@ import "./App.css";
 import Wrapper from "./Components/Wrapper/wrapper";
 import TablaDatos from "./Components/Datos/TablaDatos";
 import SelectorBar from "./Components/SelectorBar";
+import {
+  selectorbar_background_color,
+  button_color,
+  button__hover_color,
+} from "./Components/paleta_colores";
 
 function App() {
   const [startMonth, setStartMonth] = useState(
@@ -29,6 +34,20 @@ function App() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  function setCSSVariables() {
+    document.documentElement.style.setProperty(
+      "--background-color",
+      selectorbar_background_color
+    );
+    document.documentElement.style.setProperty("--primary-color", button_color);
+    document.documentElement.style.setProperty(
+      "--secondary-color",
+      button__hover_color
+    );
+  }
+
+  setCSSVariables();
 
   return (
     <Router>
