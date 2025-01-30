@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchDataTabla } from "./logica_tabla";
 import { CSVLink } from "react-csv";
-
+import { table_header_color } from "../paleta_colores";
 const TablaDatos = ({
   startMonth,
   endMonth,
@@ -71,7 +71,7 @@ const TablaDatos = ({
               fontSize: "16px",
               fontWeight: "bold",
               cursor: "pointer",
-              background: "#3354A3",
+              background: table_header_color,
               color: "white",
               border: "none",
               borderRadius: "8px",
@@ -111,7 +111,7 @@ const TablaDatos = ({
               fontSize: isSmallScreen ? "12px" : "14px",
             }}
           >
-            <thead style={{ background: "#3354A3", color: "white" }}>
+            <thead style={{ background: table_header_color, color: "white" }}>
               <tr>
                 {headers.map((header, index) => (
                   <th

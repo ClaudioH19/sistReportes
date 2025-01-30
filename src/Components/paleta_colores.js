@@ -2,6 +2,7 @@ export const selectorbar_background_color = "#f9f9f9";
 //export const selectorbar_background_color = "#ffffff";
 export const button__hover_color = " #1b487f";
 export const button_color = "#0e3c78";
+export const table_header_color = "#3354A3";
 
 export const text_color = "#000000";
 export const axis_color = "#000000";
