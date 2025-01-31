@@ -1,4 +1,4 @@
-import { text_color, donutchart_colors } from "../paleta_colores";
+import { text_color, donutchart_colors, API_BASE_URL } from "../config";
 
 export const fetchData_stats_per_month = async (
   sector,
@@ -7,7 +7,7 @@ export const fetchData_stats_per_month = async (
   endDate
 ) => {
   const response = await fetch(
-    `http://127.0.0.1:8000/api/data_por_factor?factor=${factor}&sector=${sector}&startdate=${startDate}&enddate=${endDate}`
+    `${API_BASE_URL}/api/data_por_factor?factor=${factor}&sector=${sector}&startdate=${startDate}&enddate=${endDate}`
   );
 
   if (!response.ok) {

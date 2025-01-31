@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./wrapperStyle.module.css";
 import KPI_TOTAL_EVENTOS from "../KPI/KPI_total_eventos";
-import BarChart from "../Total Eventos/BarChart";
-import LineCharts from "../Promedios eventos/LineCharts";
-import PieChart from "../Eventos por Factor/pieChart";
-import HeatmapChart from "../Eventos por Sector/heatmapChart";
+import BarChart from "../BatChart/BarChart";
+import LineCharts from "../LineChart/LineCharts";
+import PieChart from "../DonutChart/pieChart";
+import HeatmapChart from "../Heatmap/heatmapChart";
 
 const Wrapper = ({
   startMonth,

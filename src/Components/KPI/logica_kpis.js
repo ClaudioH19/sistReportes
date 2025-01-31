@@ -1,4 +1,4 @@
-import { kpis_color, text_color } from "../paleta_colores";
+import { API_BASE_URL, kpis_color, text_color } from "../config";
 
 export const fetchData_KPI_stats = async (
   sector,
@@ -7,7 +7,7 @@ export const fetchData_KPI_stats = async (
   endDate
 ) => {
   const response = await fetch(
-    `http://127.0.0.1:8000/api/indicadores_kpi?factor=${factor}&sector=${sector}&startdate=${startDate}&enddate=${endDate}`
+    `${API_BASE_URL}/api/indicadores_kpi?factor=${factor}&sector=${sector}&startdate=${startDate}&enddate=${endDate}`
   );
   if (!response.ok) {
     throw new Error("Error al obtener los datos");
@@ -28,6 +28,7 @@ export const generarKPI = (data, kpi, isSmallScreen) => {
   let totalEventos = data || 1;
   let orderOfMagnitude = 1;
 
+  //limites fijos para distribucion
   if (kpi === 1) orderOfMagnitude = 15000;
   else if (kpi === 2) orderOfMagnitude = 15;
   else orderOfMagnitude = 15;
@@ -44,9 +45,9 @@ export const generarKPI = (data, kpi, isSmallScreen) => {
   else title = "Promedio de Trabajadores por Hallazgo";
 
   if (isSmallScreen) {
-    if (kpi === 1) title = "Total Hallazgos";
-    else if (kpi === 2) title = "Prom. Segundos \npor Hallazgo";
-    else title = "Prom. Trabajadores \npor Hallazgo";
+    if (kpi === 1) title = "Total\nHallazgos";
+    else if (kpi === 2) title = "Prom.\nSegundos\npor Hallazgo";
+    else title = "Prom.\nTrabajadores\npor Hallazgo";
   }
 
   const fontSizeTitle = isSmallScreen ? 14 : 18;
@@ -60,7 +61,7 @@ export const generarKPI = (data, kpi, isSmallScreen) => {
     title: {
       text: title,
       left: "center",
-      top: isSmallScreen ? "20%" : "5%",
+      top: "5%",
       textStyle: {
         fontSize: fontSizeTitle,
         fontWeight: "bold",
@@ -130,7 +131,7 @@ export const generarKPI = (data, kpi, isSmallScreen) => {
         detail: {
           fontSize: fontSizeDetail,
           fontWeight: "bold",
-          offsetCenter: [0, "35%"],
+          offsetCenter: isSmallScreen ? [0, "55%"] : [0, "35%"],
           color: text_color,
         },
 

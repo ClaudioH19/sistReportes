@@ -1,8 +1,12 @@
 import { color } from "echarts";
-import { heatmapchart_colors, text_color, axis_color } from "../paleta_colores";
+import {
+  heatmapchart_colors,
+  text_color,
+  axis_color,
+  API_BASE_URL,
+} from "../config";
 
 export const generateMonthsInRange = (startDate, endDate) => {
-  console.log(startDate, endDate);
   let start = new Date(startDate);
   let end = new Date(endDate);
   let months = [];
@@ -28,7 +32,7 @@ export const fetchData_stats_per_month = async (
   endDate
 ) => {
   const response = await fetch(
-    `http://127.0.0.1:8000/api/data_por_sector?factor=${factor}&sector=${sector}&startdate=${startDate}&enddate=${endDate}`
+    `${API_BASE_URL}/api/data_por_sector?factor=${factor}&sector=${sector}&startdate=${startDate}&enddate=${endDate}`
   );
 
   if (!response.ok) {
@@ -90,6 +94,7 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
       },
       splitArea: { show: true },
       axisLabel: {
+        interval: isSmallScreen ? 1 : 0,
         fontSize: isSmallScreen ? 9 : 12,
         rotate: isSmallScreen ? 90 : 0,
         formatter: (value) => {

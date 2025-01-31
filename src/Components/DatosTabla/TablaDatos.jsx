@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchDataTabla } from "./logica_tabla";
 import { CSVLink } from "react-csv";
-import { table_header_color } from "../paleta_colores";
+import { table_header_color } from "../config";
 const TablaDatos = ({
   startMonth,
   endMonth,

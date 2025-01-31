@@ -4,13 +4,13 @@ import dayjs from "dayjs";
 import "antd/dist/reset.css";
 import "./App.css";
 import Wrapper from "./Components/Wrapper/wrapper";
-import TablaDatos from "./Components/Datos/TablaDatos";
+import TablaDatos from "./Components/DatosTabla/TablaDatos";
 import SelectorBar from "./Components/SelectorBar";
 import {
   selectorbar_background_color,
   button_color,
   button__hover_color,
-} from "./Components/paleta_colores";
+} from "./Components/config";
 
 function App() {
   const [startMonth, setStartMonth] = useState(
@@ -24,9 +24,10 @@ function App() {
 
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
 
+  //controlar tamaño de pantalla
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 768); // Se actualiza si el ancho es menor a 768px
+      setIsSmallScreen(window.innerWidth <= 768); // se actualiza si el ancho es menor a 768px
     };
 
     window.addEventListener("resize", handleResize);

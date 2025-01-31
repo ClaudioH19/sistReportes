@@ -1,9 +1,9 @@
 import {
-  split_line_color,
-  barchart_color,
-  text_color,
   axis_color,
-} from "../paleta_colores";
+  text_color,
+  split_line_color,
+  linechart_color,
+} from "../config";
 
 export const generateMonthsInRange = (startDate, endDate) => {
   let start = new Date(startDate);
@@ -28,7 +28,8 @@ export const fetchData_stats_per_month = async (
   sector,
   factor,
   startDate,
-  endDate
+  endDate,
+  graf
 ) => {
   const response = await fetch(
     `http://127.0.0.1:8000/api/data_por_mes?factor=${factor}&sector=${sector}&startdate=${startDate}&enddate=${endDate}`
@@ -42,32 +43,55 @@ export const fetchData_stats_per_month = async (
 
   const monthsRange = generateMonthsInRange(startDate, endDate);
 
-  const dataMap = new Map(
-    data.map((v) => [v.mes.slice(0, 7), v.Total_eventos])
-  );
+  let dataMap = [];
+
+  if (graf === 0)
+    dataMap = new Map(
+      data.map((v) => [
+        v.mes.slice(0, 7),
+        parseFloat(
+          v.Promedio_duracion.match(/[\d.]+/g).reduce(
+            (total, value, index) =>
+              total + value * [86400, 3600, 60, 1][index],
+            0
+          )
+        ).toFixed(1),
+      ])
+    );
+  else
+    dataMap = new Map(
+      data.map((v) => [
+        v.mes.slice(0, 7),
+        parseFloat(v.Promedio_involucrado).toFixed(1),
+      ])
+    );
 
   const alignedData = monthsRange.map((month) => dataMap.get(month) || 0);
 
   return alignedData;
 };
 
-export const generarChart = (data, startDate, endDate, isSmallScreen) => {
+export const generarChart = (data, startDate, endDate, graf, isSmallScreen) => {
   const dataAxisX = generateMonthsInRange(startDate, endDate);
+
+  let tittle = "";
+  if (graf === 0) tittle = "Duración Promedio de Hallazgos Mensuales";
+  else tittle = "Promedio Mensual de Trabajadores Expuestos";
 
   const option = {
     title: {
-      text: "Total de Hallazgos Mensuales",
+      text: tittle,
       left: "left",
       textStyle: {
         fontSize: 16,
         fontWeight: "bold",
-        color: text_color,
+        color: "#000000",
       },
     },
     tooltip: {
       trigger: "axis",
       axisPointer: {
-        type: "shadow",
+        type: "line",
       },
     },
     grid: {
@@ -80,9 +104,10 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
       nameLocation: isSmallScreen ? "end" : "middle",
       nameGap: isSmallScreen ? 10 : 40,
       axisLabel: {
+        interval: isSmallScreen ? 1 : 0,
         fontSize: isSmallScreen ? 9 : 12,
         rotate: isSmallScreen ? 90 : 0,
-        color: "#000",
+        color: text_color,
         formatter: (value) => {
           const date = new Date(value + "-01");
           const monthNames = [
@@ -104,23 +129,19 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
           }}`;
         },
         rich: {
-          a: {
-            fontSize: 12,
-            fontWeight: "bold",
-            color: "#000000",
-          },
-          b: { fontSize: 10, color: "#000" },
+          a: { fontSize: 12, fontWeight: "bold", color: text_color },
+          b: { fontSize: 10, color: text_color },
         },
       },
       axisLine: {
         lineStyle: {
-          color: "#000",
+          color: axis_color,
         },
       },
     },
     yAxis: {
       type: "value",
-      name: "N° Hallazgos",
+      name: graf === 0 ? "Tiempo (s)" : "N° Expuestos",
       nameLocation: isSmallScreen ? "end" : "middle",
       nameGap: isSmallScreen ? 15 : 50,
       nameTextStyle: {
@@ -129,7 +150,7 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
       },
       axisLabel: {
         fontSize: 12,
-        color: axis_color,
+        color: text_color,
       },
       splitLine: {
         show: true,
@@ -142,10 +163,15 @@ export const generarChart = (data, startDate, endDate, isSmallScreen) => {
     series: [
       {
         data: data,
-        type: "bar",
-        barWidth: "40%",
+        type: "line",
+        symbol: "circle",
+        symbolSize: 6,
+        lineStyle: {
+          width: 3,
+          color: linechart_color[0],
+        },
         itemStyle: {
-          color: barchart_color,
+          color: linechart_color[1],
         },
         label: {
           show: true,
